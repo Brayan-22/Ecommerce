@@ -33,8 +33,8 @@ public class StripeService {
                 .build();
         SessionCreateParams params = SessionCreateParams.builder()
                 .setMode(SessionCreateParams.Mode.PAYMENT)
-                .setSuccessUrl("http://localhost:8080/success")
-                .setCancelUrl("http://localhost:8080/cancel")
+                .setSuccessUrl("https://ecommerce.brayandev.info/success")
+                .setCancelUrl("https://ecommerce.brayandev.info/cancel")
                 .addLineItem(lineItem)
                 .build();
         Session session = null;

@@ -1,0 +1,26 @@
+services:
+  gateway-service:
+    image: ecommerce:latest
+    hostname: ecommerce
+    ports:
+      - "8081:8081"
+    networks:
+      - reverse-proxy
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+      labels:
+        - "traefik.enable=true"
+        - "traefik.docker.network=reverse-proxy"
+        - "traefik.http.routers.ecommerce.rule=Host(`ecommerce.${DOMAIN}`)"
+        - "traefik.http.services.ecommerce.loadbalancer.server.port=8081"
+        - "traefik.http.routers.ecommerce.entrypoints=websecure"
+        - "traefik.http.routers.ecommerce.tls=true"
+        - "traefik.http.routers.ecommerce.service=ecommerce"
+        - "traefik.http.routers.ecommerce.tls.certresolver=cloudflare"
+        - "traefik.http.routers.ecommerce.tls.domains[0].main=${DOMAIN}"
+        - "traefik.http.routers.ecommerce.tls.domains[0].sans=*.${DOMAIN}"
+networks:
+  reverse-proxy:
+    external: true

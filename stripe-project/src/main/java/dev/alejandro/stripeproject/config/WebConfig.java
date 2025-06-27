@@ -9,7 +9,7 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/api/**")
-                .allowedHeaders("/http://localhost:8080")
+                .allowedHeaders("https://ecommerce.brayandev.info")
                 .allowedMethods("POST");
     }
 }
